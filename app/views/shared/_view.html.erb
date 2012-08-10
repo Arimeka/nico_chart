@@ -1,0 +1,45 @@
+<% i = 0 %>
+<table class="table table-bordered">
+		<tbody>
+			<% @chart.each do |x| %>
+				<tr>
+				<td rowspan="2">
+					<h2><%= i = i + 1 %></h2>
+				</td>
+				<td rowspan="2">
+					<% if youtube?(x) %>
+						<a href=<%= "http://www.youtube.com/watch?v=" + x.youtube_id %> class="thumbnail">
+      				<img src=<%= "http://i3.ytimg.com/vi/" + x.youtube_id + "/mqdefault.jpg" %> alt=<%= "#{ x.title }" %>>
+    				</a>						
+    			<% else %>
+    				<a href=<%= "http://www.nicovideo.jp/watch/" + x.nico_id %> class="thumbnail">
+      				<img src=<%= "http://tn-skr1.smilevideo.jp/smile?i=" + x.nico_id[/\d+/] %> alt=<%= "#{ x.title }" %> width="320px" hight="180px">
+    				</a>						
+    			<% end %>
+				</td>
+				<td>
+					<strong>+<%= wich_controller(x, controller.action_name) %></strong>
+				</td>
+				<td>
+					<strong><%= x.upload_date %></strong>
+					<% if youtube?(x) %>
+						<span class="label" id="service">YouTube</span>
+					<% else %>
+						<span class="label" id="service">Nicovideo</span>
+					<% end %>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<% if youtube?(x) %>
+						<a href=<%= "http://www.youtube.com/watch?v=" + x.youtube_id %>>						
+    			<% else %>
+    				<a href=<%= "http://www.nicovideo.jp/watch/" + x.nico_id %>>					
+    			<% end %>					
+						<h2><%= x.title %></h2>
+					</a>
+				</td>
+			</tr>	
+		<% end %>	
+	</tbody>
+</table>
