@@ -1,18 +1,16 @@
 <% i = 0 %>
 <table class="table table-bordered">
-		<tbody>
+		<tbody>			
 			<% @chart.each do |x| %>
 				<tr>
 				<td rowspan="2">
 					<h2><%= i = i + 1 %></h2>
 				</td>
 				<td rowspan="2">
-					<% if youtube?(x) %>
-						<a href=<%= "http://www.youtube.com/watch?v=" + x.youtube_id %> class="thumbnail" target="_blank">
+					<a class="thumbnail" data-toggle="modal" href=<%= "#playVideo" + i.to_s %>>
+						<% if youtube?(x) %>
       				<img src=<%= "http://i3.ytimg.com/vi/" + x.youtube_id + "/mqdefault.jpg" %> alt=<%= "#{ x.title }" %>>
-    				</a>						
-    			<% else %>
-    				<a href=<%= "http://www.nicovideo.jp/watch/" + x.nico_id %> class="thumbnail" target="_blank">
+      			<% else %>
       				<img src=<%= "http://tn-skr1.smilevideo.jp/smile?i=" + x.nico_id[/\d+/] %> alt=<%= "#{ x.title }" %> width="320px" hight="180px">
     				</a>						
     			<% end %>
