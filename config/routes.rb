@@ -1,11 +1,10 @@
 NicoChart::Application.routes.draw do
 
-  match '/' => redirect("/views")
+  root :to => 'charts#favorites'
 
   match '/views' => 'charts#views'
   match '/comments' => 'charts#comments'
   match '/mylist' => 'charts#mylist'
-  match '/favorites' => 'charts#favorites'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

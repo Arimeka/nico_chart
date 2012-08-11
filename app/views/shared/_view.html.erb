@@ -8,11 +8,11 @@
 				</td>
 				<td rowspan="2">
 					<% if youtube?(x) %>
-						<a href=<%= "http://www.youtube.com/watch?v=" + x.youtube_id %> class="thumbnail">
+						<a href=<%= "http://www.youtube.com/watch?v=" + x.youtube_id %> class="thumbnail" target="_blank">
       				<img src=<%= "http://i3.ytimg.com/vi/" + x.youtube_id + "/mqdefault.jpg" %> alt=<%= "#{ x.title }" %>>
     				</a>						
     			<% else %>
-    				<a href=<%= "http://www.nicovideo.jp/watch/" + x.nico_id %> class="thumbnail">
+    				<a href=<%= "http://www.nicovideo.jp/watch/" + x.nico_id %> class="thumbnail" target="_blank">
       				<img src=<%= "http://tn-skr1.smilevideo.jp/smile?i=" + x.nico_id[/\d+/] %> alt=<%= "#{ x.title }" %> width="320px" hight="180px">
     				</a>						
     			<% end %>
@@ -32,12 +32,35 @@
 			<tr>
 				<td colspan="2">
 					<% if youtube?(x) %>
-						<a href=<%= "http://www.youtube.com/watch?v=" + x.youtube_id %>>						
+						<a href=<%= "http://www.youtube.com/watch?v=" + x.youtube_id %> target="_blank">						
     			<% else %>
-    				<a href=<%= "http://www.nicovideo.jp/watch/" + x.nico_id %>>					
+    				<a href=<%= "http://www.nicovideo.jp/watch/" + x.nico_id %> target="_blank">					
     			<% end %>					
 						<h2><%= x.title %></h2>
 					</a>
+					<div class="modal hide" id=<%= "playVideo" + i.to_s %>>
+  					<div class="modal-header">
+    					<button type="button" class="close" data-dismiss="modal">×</button>
+    					<h3><%= x.title %></h3>
+  					</div>
+  					<div class="modal-body">
+    					<% if youtube?(x) %>
+								<object width="640" height="480">
+  								<param name="movie" value=<%= "https://www.youtube.com/v/#{ x.youtube_id }?version=3" %>></param>
+  								<param name="allowFullScreen" value="true"></param>
+  								<param name="allowScriptAccess" value="always"></param>
+  								<embed src=<%= "https://www.youtube.com/v/#{ x.youtube_id }?version=3" %> type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="480"></embed>
+								</object> 					
+    					<% else %>
+    						<script type="text/javascript" src=<%= "http://ext.nicovideo.jp/thumb_watch/#{ x.nico_id }?w=490&h=307" %>></script>
+    						<noscript><a href=<%= "http://www.nicovideo.jp/watch/#{ x.nico_id }"%> target="_blank"><%= x.title %></a></noscript>					
+    					<% end %>	
+  					</div>
+  					<div class="modal-footer">
+    					<a href="#" class="btn" data-dismiss="modal">Close</a>
+  					</div>
+					</div>
+					<div class="btn" data-toggle="modal" data-target=<%= "#playVideo" + i.to_s %>><i class="icon-play"></i> Play</div>									
 				</td>
 			</tr>	
 		<% end %>	

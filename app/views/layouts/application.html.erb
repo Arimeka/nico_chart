@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>NicoChart</title>
+  <title>Weekly Vocaloid Ranking</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag %>
 </head>
 <body>
 	<%= render 'layouts/header' %>
 	<div class="container">
-		<h1>Weekly Vocaloid Chart by <%= controller.action_name %></h1>		
+		<% if controller.action_name == "favorites" %>
+			<h1>Weekly Vocaloid Top 100</h1>
+		<% else %>			
+			<h1>Weekly Vocaloid Top 100 by <%= controller.action_name %></h1>
+		<% end %>		
 
 		<%= yield %>
 
+		<a href="#" class="scrollup">Scroll</a>
 	</div>
+	<%= render 'layouts/footer' %>
 </body>
 </html>
