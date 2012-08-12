@@ -11,12 +11,12 @@
 						<% if youtube?(x) %>
       				<img src="<%= "http://i3.ytimg.com/vi/" + x.youtube_id + "/mqdefault.jpg" %>" alt="<%= x.title %>">
       			<% else %>
-      				<img src="<%= "http://tn-skr1.smilevideo.jp/smile?i=" + x.nico_id[/\d+/] %>" alt="<%= x.title %>" width="320" hight="180">
+      				<img src="<%= "http://tn-skr1.smilevideo.jp/smile?i=" + x.nico_id[/\d+/] %>" alt="<%= x.title %>" width="320" >
     				<% end %>
     			</a>
 				</td>
 				<td>
-					<strong>+<%= wich_controller(x, controller.action_name) %></strong>
+					<strong>+<%= value_gain(x, controller.action_name) %></strong>
 				</td>
 				<td>
 					<strong><%= x.upload_date %></strong>
@@ -43,7 +43,7 @@
   					</div>
   					<div class="modal-body">
     					<% if youtube?(x) %>
-								<object width="640" height="480">
+								<object width="640" height="480" type="application/x-shockwave-flash">
   								<param name="movie" value="<%= "https://www.youtube.com/v/" + x.youtube_id + "?version=3" %>" />
   								<param name="allowFullScreen" value="true" />
   								<param name="allowScriptAccess" value="always" />

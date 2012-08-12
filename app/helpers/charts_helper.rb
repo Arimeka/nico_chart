@@ -1,5 +1,5 @@
 module ChartsHelper
-	def wich_controller(action, name)
+	def value_gain(action, name)
 		result = case name
 							when "views"
 								action.view
