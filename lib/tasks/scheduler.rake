@@ -4,3 +4,7 @@ task :update_chart => :environment do
     Chart.get
   end
 end
+
+task :test_update => :environment do
+	Chart.get
+end
