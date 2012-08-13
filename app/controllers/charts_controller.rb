@@ -11,7 +11,7 @@ class ChartsController < ApplicationController
     @chart = Chart.all(order: "mylist DESC", limit: 100)
   end
 
-  def favorites
-    @chart = Chart.all(order: "fav DESC", limit: 100)
+  def favorites     
+    @chart = Chart.all(order: "fav DESC", limit: 100)    
   end
 end
