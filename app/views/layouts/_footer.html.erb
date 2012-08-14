@@ -1,8 +1,26 @@
 <footer class="footer">
   <small>
+    <% name = case controller.controller_name %>
+    <% when "charts" %>      
+      <% time = "Updates every Monday at 3:00 GMT" %>
+      <% "weekly" %>
+    <% when "daily_charts" %>      
+      <% time = "Rating for past 24 hours. Updates every hour." %>
+      <% "daily" %> 
+    <% end %>
+    <% act = case controller.action_name %>
+    <% when "favorites" %>
+      <% "fav" %>
+    <% when "views" %>
+      <% "view" %>
+    <% when "comments" %>
+      <% "res" %>
+    <% when "mylist" %>
+      <% "mylist" %>
+    <% end %>
     Charts from
-    <a href="http://www.nicovideo.jp/ranking/fav/weekly/vocaloid" target="_blank">Nicovideo</a>. 
-    Updates every Monday at 4:00 GMT
+    <a href="<%= "http://www.nicovideo.jp/ranking/" + act + "/" + name + "/vocaloid" %>" target="_blank">Nicovideo</a>. 
+    <%= time %>
   </small>
   <nav>
     <ul>

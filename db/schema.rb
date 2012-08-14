@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120814042544) do
+ActiveRecord::Schema.define(:version => 20120814134835) do
 
   create_table "charts", :force => true do |t|
     t.string   "nico_id"
@@ -27,5 +27,20 @@ ActiveRecord::Schema.define(:version => 20120814042544) do
   end
 
   add_index "charts", ["nico_id"], :name => "index_charts_on_nico_id", :unique => true
+
+  create_table "daily_charts", :force => true do |t|
+    t.string   "nico_id"
+    t.string   "youtube_id"
+    t.integer  "view"
+    t.integer  "comment"
+    t.integer  "mylist"
+    t.integer  "fav"
+    t.string   "title"
+    t.string   "upload_date"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "daily_charts", ["nico_id"], :name => "index_daily_charts_on_nico_id", :unique => true
 
 end

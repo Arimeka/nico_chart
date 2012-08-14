@@ -2,9 +2,14 @@ NicoChart::Application.routes.draw do
 
   root :to => 'charts#favorites'
 
-  match '/views' => 'charts#views'
-  match '/comments' => 'charts#comments'
-  match '/mylist' => 'charts#mylist'
+  match '/weekly/views' => 'charts#views'
+  match '/weekl/comments' => 'charts#comments'
+  match '/weekl/mylist' => 'charts#mylist'
+
+  match '/daily/fav' => 'daily_charts#favorites'
+  match '/daily/views' => 'daily_charts#views'
+  match '/daily/comments' => 'daily_charts#comments'
+  match '/daily/mylist' => 'daily_charts#mylist'  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

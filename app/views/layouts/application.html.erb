@@ -10,10 +10,16 @@
 <body>
 	<%= render 'layouts/header' %>
 	<div class="container">
+		<% name = case controller.controller_name %>
+		<% when "charts" %>
+			<% "Weekly" %>
+		<% when "daily_charts" %>
+			<% "Daily" %>
+		<% end %>
 		<% if controller.action_name == "favorites" %>
-			<h1>Weekly Vocaloid Top 100</h1>
+			<h1><%= name %> Vocaloid Top 100</h1>
 		<% else %>			
-			<h1>Weekly Vocaloid Top 100 by <%= controller.action_name %></h1>
+			<h1><%= name %> Vocaloid Top 100 by <%= controller.action_name %></h1>
 		<% end %>		
 
 		<%= yield %>
