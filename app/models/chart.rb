@@ -24,17 +24,19 @@ class Chart < ActiveRecord::Base
     @comments = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/res/weekly/vocaloid'))
     @mylist = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/mylist/weekly/vocaloid'))
 
+    transaction do
     prepare
     page_iteration(@favorites)
     page_iteration(@views)
     page_iteration(@comments)
     page_iteration(@mylist)
     delete_old
+    end
   end
 
   def self.page_iteration(page)
     client = YouTubeIt::Client.new
-    transaction do      
+    #transaction do      
       1.upto(100) do |x|        
         v = page.css("div#item#{ x } table tr td p strong span").text
         nico_id = page.css("div#item#{ x } table tr a.watch").first.attributes["href"].value[/\w{2}\d+/]
@@ -81,7 +83,7 @@ class Chart < ActiveRecord::Base
             ch.update_attributes( mylist: val )
           end
         end
-      end
+      #end
     end
   end
 
