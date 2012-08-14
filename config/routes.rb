@@ -3,8 +3,8 @@ NicoChart::Application.routes.draw do
   root :to => 'charts#favorites'
 
   match '/weekly/views' => 'charts#views'
-  match '/weekl/comments' => 'charts#comments'
-  match '/weekl/mylist' => 'charts#mylist'
+  match '/weekly/comments' => 'charts#comments'
+  match '/weekly/mylist' => 'charts#mylist'
 
   match '/daily/fav' => 'daily_charts#favorites'
   match '/daily/views' => 'daily_charts#views'
