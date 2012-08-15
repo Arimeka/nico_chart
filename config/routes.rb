@@ -1,7 +1,8 @@
 NicoChart::Application.routes.draw do
 
-  root :to => 'charts#favorites'
+  root :to => 'static_pages#home'
 
+  match '/weekly/fav' => 'charts#favorites'
   match '/weekly/views' => 'charts#views'
   match '/weekly/comments' => 'charts#comments'
   match '/weekly/mylist' => 'charts#mylist'
@@ -14,7 +15,12 @@ NicoChart::Application.routes.draw do
   match '/monthly/fav' => 'monthly_charts#favorites'
   match '/monthly/views' => 'monthly_charts#views'
   match '/monthly/comments' => 'monthly_charts#comments'
-  match '/monthly/mylist' => 'monthly_charts#mylist'    
+  match '/monthly/mylist' => 'monthly_charts#mylist'
+
+  match '/total/fav' => 'total_charts#favorites'
+  match '/total/views' => 'total_charts#views'
+  match '/total/comments' => 'total_charts#comments'
+  match '/total/mylist' => 'total_charts#mylist'    
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

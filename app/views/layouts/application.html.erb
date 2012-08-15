@@ -17,11 +17,15 @@
 			<% "Daily" %>
 		<% when "monthly_charts" %>
 			<% "Monthly" %>
+		<% when "total_charts" %>		
+			<% "Total" %>
 		<% end %>
-		<% if controller.action_name == "favorites" %>
-			<h1><%= name %> Vocaloid Top 100</h1>
-		<% else %>			
-			<h1><%= name %> Vocaloid Top 100 by <%= controller.action_name %></h1>
+		<% if controller.action_name =! "home" %>
+			<% if controller.action_name == "favorites" %>
+				<h1><%= name %> Vocaloid Top 100</h1>
+			<% else %>			
+				<h1><%= name %> Vocaloid Top 100 by <%= controller.action_name %></h1>
+			<% end %>
 		<% end %>		
 
 		<%= yield %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120815044554) do
+ActiveRecord::Schema.define(:version => 20120815121330) do
 
   create_table "charts", :force => true do |t|
     t.string   "nico_id"
@@ -57,5 +57,20 @@ ActiveRecord::Schema.define(:version => 20120815044554) do
   end
 
   add_index "monthly_charts", ["nico_id"], :name => "index_monthly_charts_on_nico_id", :unique => true
+
+  create_table "total_charts", :force => true do |t|
+    t.string   "nico_id"
+    t.string   "youtube_id"
+    t.integer  "view"
+    t.integer  "comment"
+    t.integer  "mylist"
+    t.integer  "fav"
+    t.string   "title"
+    t.string   "upload_date"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "total_charts", ["nico_id"], :name => "index_total_charts_on_nico_id", :unique => true
 
 end

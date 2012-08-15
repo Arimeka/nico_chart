@@ -1,0 +1,2 @@
+module TotalChartsHelper
+end

@@ -1,5 +1,6 @@
 <footer class="footer">
   <small>
+    <% if controller.action_name =! "home" %>
     <% name = case controller.controller_name %>
     <% when "charts" %>      
       <% time = "Updates every Monday at 3:00 GMT" %>
@@ -8,8 +9,11 @@
       <% time = "Rating for last 24 hours. Updates every hour." %>
       <% "daily" %>
     <% when "monthly_charts" %>
-      <% time = "Rating for last month. Updates on the first day of every month at 4:00 GMT." %>
-      <% "monthly" %> 
+      <% time = "Rating for last month. Updates on the first day of every month at 2:00 GMT." %>
+      <% "monthly" %>
+    <% when "total_charts" %>
+      <% time = "Rating for all time. Updates every day at at 1:00 GMT." %>
+      <% "monthly" %>
     <% end %>
     <% act = case controller.action_name %>
     <% when "favorites" %>
@@ -24,6 +28,10 @@
     Charts from
     <a href="<%= "http://www.nicovideo.jp/ranking/" + act + "/" + name + "/vocaloid" %>" target="_blank">Nicovideo</a>. 
     <%= time %>
+    <% else %>
+    Charts from
+    <a href="http://www.nicovideo.jp/ranking/" target="_blank">Nicovideo</a>.
+    <% end %>
   </small>
   <nav>
     <ul>
