@@ -5,8 +5,11 @@
       <% time = "Updates every Monday at 3:00 GMT" %>
       <% "weekly" %>
     <% when "daily_charts" %>      
-      <% time = "Rating for past 24 hours. Updates every hour." %>
-      <% "daily" %> 
+      <% time = "Rating for last 24 hours. Updates every hour." %>
+      <% "daily" %>
+    <% when "monthly_charts" %>
+      <% time = "Rating for last month. Updates on the first day of every month at 4:00 GMT." %>
+      <% "monthly" %> 
     <% end %>
     <% act = case controller.action_name %>
     <% when "favorites" %>

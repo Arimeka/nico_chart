@@ -5,11 +5,7 @@ module GetChart
       v = page.css("div#item#{ x } table tr td p strong span").text
       nico_id = page.css("div#item#{ x } table tr a.watch").first.attributes["href"].value[/\w{2}\d+/]
 
-      if v[/,/].nil?
-        val = v.to_i
-      else
-        val = (v[/(\d+),(\d+)/, 1] + v[/(\d+),(\d+)/, 2]).to_i
-      end
+      val = v.split(',').join
 
       ch = find_by_nico_id(nico_id)
 

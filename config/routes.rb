@@ -9,7 +9,12 @@ NicoChart::Application.routes.draw do
   match '/daily/fav' => 'daily_charts#favorites'
   match '/daily/views' => 'daily_charts#views'
   match '/daily/comments' => 'daily_charts#comments'
-  match '/daily/mylist' => 'daily_charts#mylist'  
+  match '/daily/mylist' => 'daily_charts#mylist'
+
+  match '/monthly/fav' => 'monthly_charts#favorites'
+  match '/monthly/views' => 'monthly_charts#views'
+  match '/monthly/comments' => 'monthly_charts#comments'
+  match '/monthly/mylist' => 'monthly_charts#mylist'    
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

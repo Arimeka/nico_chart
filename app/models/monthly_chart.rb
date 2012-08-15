@@ -17,6 +17,7 @@
 
 class MonthlyChart < ActiveRecord::Base
   attr_accessible :comment, :fav, :mylist, :nico_id, :title, :upload_date, :view, :youtube_id
+  extend GetChart
 
   def self.get
     @favorites = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/fav/monthly/vocaloid'))
