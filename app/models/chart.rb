@@ -14,6 +14,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+
 class Chart < ActiveRecord::Base
   attr_accessible :comment, :fav, :image, :mylist, :nico_id, :title, :upload_date, :view, :youtube_id
   extend GetChart
