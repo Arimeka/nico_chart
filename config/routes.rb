@@ -2,7 +2,7 @@ NicoChart::Application.routes.draw do
 
   constraints(:host => /^herokuapp.com/) do
     root :to => redirect("http://vocaloid.anifag.com/")
-    match '/*path', :to => redirect {|params| "http://www.communityguides.eu/#{params[:path]}"}
+    match '/*path', :to => redirect {|params| "http://vocaloid.anifag.com/#{params[:path]}"}
   end
 
   root :to => 'static_pages#home'
