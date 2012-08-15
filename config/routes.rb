@@ -1,10 +1,5 @@
 NicoChart::Application.routes.draw do
 
-  constraints(:host => 'http://warm-wave-7186.herokuapp.com/') do
-    root :to => redirect("http://vocaloid.anifag.com/")
-    match '/*path', :to => redirect {|params| "http://vocaloid.anifag.com/#{params[:path]}"}
-  end
-
   root :to => 'static_pages#home'
 
   match '/ranking/weekly/fav' => 'charts#favorites'
