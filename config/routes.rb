@@ -2,25 +2,25 @@ NicoChart::Application.routes.draw do
 
   root :to => 'static_pages#home'
 
-  match '/weekly/fav' => 'charts#favorites'
-  match '/weekly/views' => 'charts#views'
-  match '/weekly/comments' => 'charts#comments'
-  match '/weekly/mylist' => 'charts#mylist'
+  match '/ranking/weekly/fav' => 'charts#favorites'
+  match '/ranking/weekly/views' => 'charts#views'
+  match '/ranking/weekly/comments' => 'charts#comments'
+  match '/ranking/weekly/mylist' => 'charts#mylist'
 
-  match '/daily/fav' => 'daily_charts#favorites'
-  match '/daily/views' => 'daily_charts#views'
-  match '/daily/comments' => 'daily_charts#comments'
-  match '/daily/mylist' => 'daily_charts#mylist'
+  match '/ranking/daily/fav' => 'daily_charts#favorites'
+  match '/ranking/daily/views' => 'daily_charts#views'
+  match '/ranking/daily/comments' => 'daily_charts#comments'
+  match '/ranking/daily/mylist' => 'daily_charts#mylist'
 
-  match '/monthly/fav' => 'monthly_charts#favorites'
-  match '/monthly/views' => 'monthly_charts#views'
-  match '/monthly/comments' => 'monthly_charts#comments'
-  match '/monthly/mylist' => 'monthly_charts#mylist'
+  match '/ranking/monthly/fav' => 'monthly_charts#favorites'
+  match '/ranking/monthly/views' => 'monthly_charts#views'
+  match '/ranking/monthly/comments' => 'monthly_charts#comments'
+  match '/ranking/monthly/mylist' => 'monthly_charts#mylist'
 
-  match '/total/fav' => 'total_charts#favorites'
-  match '/total/views' => 'total_charts#views'
-  match '/total/comments' => 'total_charts#comments'
-  match '/total/mylist' => 'total_charts#mylist'    
+  match '/ranking/total/fav' => 'total_charts#favorites'
+  match '/ranking/total/views' => 'total_charts#views'
+  match '/ranking/total/comments' => 'total_charts#comments'
+  match '/ranking/total/mylist' => 'total_charts#mylist'    
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
