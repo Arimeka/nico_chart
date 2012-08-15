@@ -20,7 +20,7 @@
 		<% when "total_charts" %>		
 			<% "Total" %>
 		<% end %>
-		<% if controller.action_name =! "home" %>
+		<% if controller.controller_name != "static_pages" %>
 			<% if controller.action_name == "favorites" %>
 				<h1><%= name %> Vocaloid Top 100</h1>
 			<% else %>			

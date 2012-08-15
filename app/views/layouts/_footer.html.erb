@@ -1,6 +1,6 @@
 <footer class="footer">
   <small>
-    <% if controller.action_name =! "home" %>
+    <% if controller.controller_name != "static_pages" %>
     <% name = case controller.controller_name %>
     <% when "charts" %>      
       <% time = "Updates every Monday at 3:00 GMT" %>
