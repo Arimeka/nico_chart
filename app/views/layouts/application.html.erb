@@ -9,28 +9,14 @@
   <%= favicon_link_tag %>
   <meta name="keywords" content="vocaloid, ranking, Hatsune Miku, Megurine Luka, Meiko, Kagamine Rin, Kagamine Len, SeeU, CUL">
 	<meta name="description" content="Vocaloid Ranking - daily, weekly, monthly and total Top 100 vocaloid videos from NicoNicoDouga.">
-	<meta content="Navi Arimeka" name="author">	
+	<meta content="Navi Arimeka" name="author">
+	<%= render 'layouts/shim' %>
 </head>
 <body>
 	<%= render 'layouts/header' %>
 	<div class="container">
-		<% name = case controller.controller_name %>
-		<% when "charts" %>
-			<% "Weekly" %>
-		<% when "daily_charts" %>
-			<% "Daily" %>
-		<% when "monthly_charts" %>
-			<% "Monthly" %>
-		<% when "total_charts" %>		
-			<% "Total" %>
-		<% end %>
-		<% if controller.controller_name != "static_pages" %>
-			<% if controller.action_name == "favorites" %>
-				<h1><%= name %> Vocaloid Top 100</h1>
-			<% else %>			
-				<h1><%= name %> Vocaloid Top 100 by <%= controller.action_name %></h1>
-			<% end %>
-		<% end %>		
+
+		<%= render 'layouts/name' %>		
 
 		<%= yield %>
 
