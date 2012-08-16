@@ -31,8 +31,8 @@ class MonthlyChart < ActiveRecord::Base
       page_iteration(@views)
       page_iteration(@comments)
       page_iteration(@mylist)
-      delete_old
-      expire_self_all_cache
+      delete_old      
     end
+    expire_self_all_cache
   end
 end
