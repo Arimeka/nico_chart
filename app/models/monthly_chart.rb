@@ -25,14 +25,14 @@ class MonthlyChart < ActiveRecord::Base
     @comments = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/res/monthly/vocaloid'))
     @mylist = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/mylist/monthly/vocaloid'))
 
-    transaction do
-      expire_self_all_cache
+    transaction do      
       prepare
       page_iteration(@favorites)
       page_iteration(@views)
       page_iteration(@comments)
       page_iteration(@mylist)
       delete_old
+      expire_self_all_cache
     end
   end
 end
