@@ -8,22 +8,23 @@ module GetChart
 
       val = v.split(',').join
 
+      title = page.css("div#item#{ x } table tr a.watch").first.text      
+
+      if client.videos_by(:query => title, :max_results => 1).videos == []
+        youtube_id = "empty"
+      else
+        if client.videos_by(:query => title, :max_results => 1).videos.first.title.include?(title)
+          youtube_id = client.videos_by(:query => title, :max_results => 1).videos.first.unique_id
+        else
+          youtube_id = "empty"
+        end
+      end
+
       ch = find_by_nico_id(nico_id)
 
       if ch.nil?
-        title = page.css("div#item#{ x } table tr a.watch").first.text
         page.css("div#item#{ x } table tr td p span strong").text[/(\d+)\D+(\d+)\D+(\d+)\D+(\d+:\d+)/]
-        date = $3 + '.' + $2 + '.' + $1 + ' ' + $4
-
-        if client.videos_by(:query => title, :max_results => 1).videos == []
-          youtube_id = "empty"
-        else
-          if client.videos_by(:query => title, :max_results => 1).videos.first.title.include?(title)
-            youtube_id = client.videos_by(:query => title, :max_results => 1).videos.first.unique_id
-          else
-            youtube_id = "empty"
-          end
-        end
+        date = $3 + '.' + $2 + '.' + $1 + ' ' + $4       
 
         case page
         when @favorites
@@ -39,13 +40,13 @@ module GetChart
       else
         case page
         when @favorites
-          ch.update_attributes( fav: val )
+          ch.update_attributes( fav: val, youtube_id: youtube_id )
         when @views
-          ch.update_attributes( view: val )
+          ch.update_attributes( view: val, youtube_id: youtube_id )
         when @comments
-          ch.update_attributes( comment: val )
+          ch.update_attributes( comment: val, youtube_id: youtube_id )
         when @mylist
-          ch.update_attributes( mylist: val )
+          ch.update_attributes( mylist: val, youtube_id: youtube_id )
         end
       end
     end
