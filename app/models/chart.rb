@@ -28,10 +28,10 @@ class Chart < ActiveRecord::Base
 
     #transaction do      
       prepare
-      page_iteration_new(@favorites)
-      page_iteration_new(@views)
-      page_iteration_new(@comments)
-      page_iteration_new(@mylist)
+      page_iteration(@favorites)
+      page_iteration(@views)
+      page_iteration(@comments)
+      page_iteration(@mylist)
       delete_old      
     #end
     expire_self_all_cache
