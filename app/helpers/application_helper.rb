@@ -27,13 +27,13 @@ module ApplicationHelper
 	def nico_url(name, act_name)
 		case act_name
 		when "favorites"
-			"#{name}/fav"
+			"fav/#{name}"
 		when "views"
-			"#{name}/view"
+			"view/#{name}"
 		when "comments"
-			"#{name}/res"
+			"res/#{name}"
 		when "mylist"
-			"#{name}/mylist"
+			"mylist/#{name}"
 		end
 	end
 end
