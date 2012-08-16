@@ -15,7 +15,7 @@ module GetChart
         page.css("div#item#{ x } table tr td p span strong").text[/(\d+)\D+(\d+)\D+(\d+)\D+(\d+:\d+)/]
         date = $3 + '.' + $2 + '.' + $1 + ' ' + $4
 
-        if client.videos_by(:query => title, :max_results => 1).videos == [] or client.videos_by(:query => title, :max_results => 1).videos.first.title
+        if client.videos_by(:query => title, :max_results => 1).videos == []
           youtube_id = "empty"
         else
           if client.videos_by(:query => title, :max_results => 1).videos.first.title.include?(title)
