@@ -1,4 +1,5 @@
-module GetChart    
+module GetChart  
+   
   def page_iteration(page)
     client = YouTubeIt::Client.new   
     1.upto(100) do |x|        
@@ -53,4 +54,15 @@ module GetChart
   def prepare
     update_all( view: 0, comment: 0, mylist: 0, fav: 0 )
   end
+
+  def all_caching(order, limit)
+    Rails.cache.fetch("#{self}.all#{order}") { all(order: order, limit: limit) }
+  end
+
+  def expire_self_all_cache
+    Rails.cache.delete("#{self}.allfav DESC")
+    Rails.cache.delete("#{self}.allmylist DESC")
+    Rails.cache.delete("#{self}.allcomment DESC")
+    Rails.cache.delete("#{self}.allview DESC")
+  end    
 end

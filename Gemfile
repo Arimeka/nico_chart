@@ -5,6 +5,7 @@ gem 'bootstrap-sass', '2.0.0'
 gem 'nokogiri'
 gem 'youtube_it'
 gem 'whenever', :require => false
+gem 'dalli'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

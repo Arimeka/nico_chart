@@ -16,8 +16,8 @@
 #
 
 class DailyChart < ActiveRecord::Base
-  attr_accessible :comment, :fav, :mylist, :nico_id, :title, :upload_date, :view, :youtube_id
   extend GetChart
+  attr_accessible :comment, :fav, :mylist, :nico_id, :title, :upload_date, :view, :youtube_id
 
   def self.get
     @favorites = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/fav/daily/vocaloid'))
@@ -26,12 +26,13 @@ class DailyChart < ActiveRecord::Base
     @mylist = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/mylist/daily/vocaloid'))
 
     transaction do
-      self.prepare
+      expire_self_all_cache
+      prepare
       page_iteration(@favorites)
       page_iteration(@views)
       page_iteration(@comments)
       page_iteration(@mylist)
-      delete_old
+      delete_old      
     end
   end
 end

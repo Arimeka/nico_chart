@@ -27,6 +27,7 @@ class Chart < ActiveRecord::Base
     @mylist = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/mylist/weekly/vocaloid'))
 
     transaction do
+      expire_self_all_cache
       prepare
       page_iteration(@favorites)
       page_iteration(@views)
@@ -34,5 +35,5 @@ class Chart < ActiveRecord::Base
       page_iteration(@mylist)
       delete_old
     end
-  end    
+  end
 end

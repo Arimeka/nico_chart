@@ -1,3 +1,4 @@
+<% cache("footer") do %>
 <footer class="footer">
   <small>
     <% if controller.controller_name != "static_pages" %>
@@ -13,7 +14,7 @@
       <% "monthly" %>
     <% when "total_charts" %>
       <% time = "Rating for all time. Updates every day at at 1:00 GMT." %>
-      <% "monthly" %>
+      <% "total" %>
     <% end %>
     <% act = case controller.action_name %>
     <% when "favorites" %>
@@ -39,3 +40,4 @@
     </ul>
   </nav>
 </footer>
+<% end %>
