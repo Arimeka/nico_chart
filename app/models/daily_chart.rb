@@ -25,14 +25,14 @@ class DailyChart < ActiveRecord::Base
     @comments = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/res/daily/vocaloid'))
     @mylist = Nokogiri::HTML(open('http://www.nicovideo.jp/ranking/mylist/daily/vocaloid'))
 
-    transaction do      
+    #transaction do      
       prepare
       page_iteration(@favorites)
       page_iteration(@views)
       page_iteration(@comments)
       page_iteration(@mylist)
       delete_old            
-    end
+    #end
     expire_self_all_cache
   end
 end

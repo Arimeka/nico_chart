@@ -1,7 +1,8 @@
 module GetChart  
    
   def page_iteration(page)
-    client = YouTubeIt::Client.new   
+    client = YouTubeIt::Client.new
+    transaction do   
     1.upto(100) do |x|        
       v = page.css("div#item#{ x } table tr td p strong span").text
       nico_id = page.css("div#item#{ x } table tr a.watch").first.attributes["href"].value[/\w{2}\d+/]
@@ -16,8 +17,12 @@ module GetChart
 
         if client.videos_by(:query => title, :max_results => 1).videos == []
           youtube_id = "empty"
-        else          
-          youtube_id = client.videos_by(:query => title, :max_results => 1).videos.first.unique_id          
+        else
+          if client.videos_by(:query => title, :max_results => 1).videos.first.title.include?(title)            
+            youtube_id = client.videos_by(:query => title, :max_results => 1).videos.first.unique_id
+          else
+            youtube_id = "empty"
+          end          
         end
 
         page.css("div#item#{ x } table tr td p span strong").text[/(\d+)\D+(\d+)\D+(\d+)\D+(\d+:\d+)/]
@@ -71,6 +76,7 @@ module GetChart
           end
         end
       end
+    end
     end
   end
 
