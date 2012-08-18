@@ -78,7 +78,7 @@ module GetChart
       end
     end
     end
-  end
+  end  
 
   def delete_old
     delete_all( view: 0, comment: 0, mylist: 0, fav: 0 )

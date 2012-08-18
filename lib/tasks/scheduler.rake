@@ -15,6 +15,10 @@ task :update_daily_chart => :environment do
 	DailyChart.get
 end
 
+task :check_daily_chart => :environment do
+  DailyChart.check
+end
+
 task :update_total_chart => :environment do
 	TotalChart.get
 end

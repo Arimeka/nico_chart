@@ -33,6 +33,6 @@ class TotalChart < ActiveRecord::Base
       page_iteration(@mylist)
       delete_old      
     #end
-    #expire_self_all_cache
+    expire_self_all_cache
   end
 end
