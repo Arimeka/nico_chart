@@ -22,3 +22,5 @@ doc/
 .DS_Store
 bundler_stubs/
 .settings/
+nico_chart.sublime-project
+nico_chart.sublime-workspace
