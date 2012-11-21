@@ -6,21 +6,25 @@ NicoChart::Application.routes.draw do
   match '/ranking/weekly/views' => 'charts#views'
   match '/ranking/weekly/comments' => 'charts#comments'
   match '/ranking/weekly/mylist' => 'charts#mylist'
+  match '/ranking/weekly/re-find/:id' => 'charts#refind'
 
   match '/ranking/daily/fav' => 'daily_charts#favorites'
   match '/ranking/daily/views' => 'daily_charts#views'
   match '/ranking/daily/comments' => 'daily_charts#comments'
   match '/ranking/daily/mylist' => 'daily_charts#mylist'
+  match '/ranking/daily/re-find/:id' => 'daily_charts#refind'
 
   match '/ranking/monthly/fav' => 'monthly_charts#favorites'
   match '/ranking/monthly/views' => 'monthly_charts#views'
   match '/ranking/monthly/comments' => 'monthly_charts#comments'
   match '/ranking/monthly/mylist' => 'monthly_charts#mylist'
+  match '/ranking/monthly/re-find/:id' => 'monthly_charts#refind'
 
   match '/ranking/total/fav' => 'total_charts#favorites'
   match '/ranking/total/views' => 'total_charts#views'
   match '/ranking/total/comments' => 'total_charts#comments'
-  match '/ranking/total/mylist' => 'total_charts#mylist'    
+  match '/ranking/total/mylist' => 'total_charts#mylist'
+  match '/ranking/total/re-find/:id' => 'total_charts#refind'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -19,6 +19,11 @@
 					<strong>+<%= value_gain(x, controller.action_name) %></strong>
 				</td>
 				<td>
+          <%= link_to '<i class="icon-repeat"></i>'.html_safe, 
+              { :controller => controller.controller_name , :action => "refind", 
+                :id => x.nico_id, :contr => controller.controller_name }, 
+              :class => "btn btn-danger pull-right", :title => "Re-find video"
+           %>
 					<strong><%= x.upload_date %></strong>
 					<% if youtube?(x) %>
 						<span class="label">YouTube</span>
@@ -38,6 +43,11 @@
 					</a>
 					<div class="modal hide" id="<%= "playVideo" + i.to_s %>">
   					<div class="modal-header">
+              <%= link_to '<i class="icon-repeat"></i>'.html_safe, 
+                  { :controller => controller.controller_name , :action => "refind", 
+                    :id => x.nico_id, :contr => controller.controller_name }, 
+                  :class => "btn btn-danger pull-left", :title => "Re-find video"
+              %>
     					<button type="button" class="close" data-dismiss="modal">×</button>
     					<h3><%= x.title %></h3>
   					</div>
@@ -54,12 +64,17 @@
     						<noscript><a href="<%= "http://www.nicovideo.jp/watch/" + x.nico_id %>" target="_blank"><%= x.title %></a></noscript>					
     					<% end %>	
   					</div>
-  					<div class="modal-footer">
+  					<div class="modal-footer">                            
     					<a href="#" class="btn" data-dismiss="modal">Close</a>
+              <a class="btn" href="<%= "http://nicosound.anyap.info/sound/" + x.nico_id %>" target="_blank">
+                Find MP3 <i class="icon-music"></i>
+              </a>              
   					</div>
 					</div>
 					<div class="btn" data-toggle="modal" data-target="<%= "#playVideo" + i.to_s %>"><i class="icon-play"></i> Play</div>
-          <a class="btn" href="<%= "http://nicosound.anyap.info/sound/" + x.nico_id %>" target="_blank">Find MP3 <i class="icon-music"></i></a>
+          <a class="btn" href="<%= "http://nicosound.anyap.info/sound/" + x.nico_id %>" target="_blank">
+            Find MP3 <i class="icon-music"></i>
+          </a>
 				</td>
 			</tr>	
 		<% end %>	

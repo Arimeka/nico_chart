@@ -36,4 +36,18 @@ module ApplicationHelper
 			"mylist/#{name}"
 		end
 	end
+
+	def reload(video)
+		client = YouTubeIt::Client.new
+
+    if client.videos_by(:query => video.title, :max_results => 1).videos == []
+      video.youtube_id = "empty"
+    elsif client.videos_by(:query => video.title, :max_results => 1).videos.first.title.include?(video.title)            
+      video.youtube_id = client.videos_by(:query => video.title, :max_results => 1).videos.first.unique_id
+    else
+      video.youtube_id = "empty"         
+    end
+
+    video.save    
+	end
 end
