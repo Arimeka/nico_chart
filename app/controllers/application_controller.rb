@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
       @video = Chart.find_by_nico_id(params[:id])
       Chart.expire_self_all_cache
     end
-    reload(@video)
-    redirect_to session.delete(:return_to)
+    reload(@video) if @video
+    redirect_to session.delete(:return_to) || root_path
   end
 end
