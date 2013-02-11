@@ -14,7 +14,7 @@
         :class => "btn btn-danger pull-right", :title => "Re-find video"
      %>
     <strong><%= x.upload_date %></strong>
-    <span class="label" id="videoSource">
+    <span class="label" id="<%= "videoSource" + i.to_s %>">
       <% if youtube?(x) %>
         YouTube
       <% else %>

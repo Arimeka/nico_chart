@@ -1,9 +1,8 @@
-
-  $("<%= '#thumbnail' + i.to_s %>").html("<%= escape_javascript(
-                                      render :partial => 'shared/video/thumbnail', 
-                                      :locals => {:x => x}) %>");
-  $("<%= '#youtube_url' + i.to_s %>").attr('href', '<%= "http://www.youtube.com/watch?v=" + x.youtube_id %>')
-  $("#videoSource").text("YouTube")
-  $("<%= '#playVideo' + i.to_s %>").html("<%= escape_javascript(
-                                      render :partial => 'shared/video/play_video', 
-                                      :locals => {:x => x, :i => i}) %>");
+$("<%= '#thumbnail' + i.to_s %>").html("<%= escape_javascript(
+                                    render :partial => 'shared/video/thumbnail', 
+                                    :locals => {:x => x}) %>");
+$("<%= '#youtube_url' + i.to_s %>").attr('href', '<%= "http://www.youtube.com/watch?v=" + x.youtube_id %>')
+$("<%= '#videoSource' + i.to_s %>").text("YouTube")
+$("<%= '#playVideo' + i.to_s %>").html("<%= escape_javascript(
+                                    render :partial => 'shared/video/play_video', 
+                                    :locals => {:x => x, :i => i}) %>");

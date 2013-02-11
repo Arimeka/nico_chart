@@ -21,10 +21,8 @@ class ApplicationController < ActionController::Base
       i = params[:number]
       reload(@video) if @video      
       format.html do 
-        if @video.youtube_id != "empty"
-          session[:return_to] ||= request.referer       
-          redirect_to session.delete(:return_to) || root_path
-        end
+        session[:return_to] ||= request.referer       
+        redirect_to session.delete(:return_to) || root_path
       end
       format.js do
         render :partial => 'shared/refind', :locals => {:x => @video, :i => i} if @video.youtube_id != "empty"
