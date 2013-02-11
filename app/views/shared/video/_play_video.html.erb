@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <%= link_to '<i class="icon-repeat"></i>'.html_safe, 
+      { :controller => controller.controller_name , :action => "refind", 
+        :id => x.nico_id, :remote => true,
+        :contr => controller.controller_name, :number => i }, 
+      :class => "btn btn-danger pull-left", :title => "Re-find video"
+  %>
+  <button type="button" class="close" data-dismiss="modal">×</button>
+  <h3><%= x.title %></h3>
+</div>
+<div class="modal-body">
+  <% if youtube?(x) %>
+    <object width="640" height="480" type="application/x-shockwave-flash">
+      <param name="movie" value="<%= "https://www.youtube.com/v/" + x.youtube_id + "?version=3" %>" />
+      <param name="allowFullScreen" value="true" />
+      <param name="allowScriptAccess" value="always" />
+      <embed src="<%= "https://www.youtube.com/v/" + x.youtube_id + "?version=3" %>" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="480" />
+    </object>           
+  <% else %>
+    <script type="text/javascript" src="<%= "http://ext.nicovideo.jp/thumb_watch/" + x.nico_id + "?w=490&h=307" %>"></script>
+    <noscript><a href="<%= "http://www.nicovideo.jp/watch/" + x.nico_id %>" target="_blank"><%= x.title %></a></noscript>         
+  <% end %> 
+</div>
+<div class="modal-footer">                            
+  <a href="#" class="btn" data-dismiss="modal">Close</a>
+  <a class="btn" href="<%= "http://nicosound.anyap.info/sound/" + x.nico_id %>" target="_blank">
+    Find MP3 <i class="icon-music"></i>
+  </a>              
+</div>
