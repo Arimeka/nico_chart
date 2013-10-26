@@ -5,6 +5,7 @@ gem 'bootstrap-sass', '2.0.0'
 gem 'nokogiri'
 gem 'youtube_it'
 gem 'whenever', :require => false
+gem 'memcachier'
 gem 'dalli'
 
 # Bundle edge Rails instead:
@@ -37,6 +38,7 @@ end
 
 group :production do
   gem 'pg', '0.12.2'
+  gem 'rails_12factor'
 end
 
 # To use ActiveModel has_secure_password
