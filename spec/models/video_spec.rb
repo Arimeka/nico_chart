@@ -24,6 +24,8 @@ RSpec.describe Video, type: :model do
     it { should respond_to(:nico_id) }
     it { should respond_to(:uploaded_at) }
 
+    it { should respond_to(:rankings) }
+
     it { should be_valid }
   end
 
@@ -42,5 +44,13 @@ RSpec.describe Video, type: :model do
       video.uploaded_at = nil
       expect(video).to be_invalid
     end
+  end
+
+  it 'destroy rankings after destroy video' do
+    ranking = create(:ranking, video: video)
+    expect(video.rankings).to eq [ranking]
+
+    video.destroy
+    expect(Ranking.all).to eq []
   end
 end

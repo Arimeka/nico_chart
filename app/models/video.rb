@@ -15,4 +15,8 @@ class Video < ActiveRecord::Base
   # Validations
   # ======================================================
   validates :title, :nico_id, :uploaded_at, presence: true
+
+  # Relations
+  # ======================================================
+  has_many :rankings, dependent: :destroy
 end
