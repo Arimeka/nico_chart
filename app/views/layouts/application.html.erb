@@ -1,27 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Vocaloid Ranking</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <title>NicoChart</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <%= favicon_link_tag %>
-  <meta name="keywords" content="vocaloid, ranking, Hatsune Miku, Megurine Luka, Meiko, Kagamine Rin, Kagamine Len, SeeU, CUL">
-	<meta name="description" content="Vocaloid Ranking - daily, weekly, monthly and total Top 100 vocaloid videos from NicoNicoDouga.">
-	<meta content="Navi Arimeka" name="author">
-	<%= render 'layouts/shim' %>
 </head>
 <body>
-	<%= render 'layouts/header' %>
-	<div class="container">
 
-		<%= render 'layouts/name' %>		
+<%= yield %>
 
-		<%= yield %>
-
-		<a href="#" class="scrollup">Scroll</a>
-	</div>
-	<%= render 'layouts/footer' %>
 </body>
 </html>

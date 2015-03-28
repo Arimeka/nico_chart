@@ -1,5 +1,0 @@
-<% if youtube?(x) %>
-  <img src="<%= "http://i3.ytimg.com/vi/" + x.youtube_id + "/mqdefault.jpg" %>" alt="<%= x.title %>">
-<% else %>
-  <img src="<%= "http://tn-skr1.smilevideo.jp/smile?i=" + x.nico_id[/\d+/] %>" alt="<%= x.title %>" width="320" >
-<% end %>

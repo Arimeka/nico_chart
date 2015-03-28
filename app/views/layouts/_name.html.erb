@@ -1,7 +1,0 @@
-<% if controller.controller_name != "static_pages" %>
-	<% if controller.action_name == "favorites" %>
-		<h1><%= name(controller.controller_name, controller.action_name)[:name] %> Vocaloid Top 100</h1>
-	<% else %>			
-		<h1><%= name(controller.controller_name, controller.action_name)[:name] %> Vocaloid Top 100 by <%= controller.action_name %></h1>
-	<% end %>
-<% end %>	
