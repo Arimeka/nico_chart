@@ -13,6 +13,9 @@
 #  updated_at     :datetime         not null
 #
 
+require 'open-uri'
+require 'google/api_client'
+
 class Ranking < ActiveRecord::Base
   # Validations
   # ======================================================
@@ -34,6 +37,15 @@ class Ranking < ActiveRecord::Base
       url = "http://www.nicovideo.jp/ranking/fav/#{type}/vocaloid?rss=2.0"
       doc = Nokogiri::XML(open(url))
 
+      client = Google::APIClient.new(
+        key: GOOGLE_API_CONFIG['secret_access_key'],
+        authorization: nil,
+        application_name: 'NicoChart',
+        application_version: '2.0.0'
+      )
+      youtube = client.discovered_api('youtube', 'v3')
+      results = Array.new
+
       doc.xpath('//item').each_with_index do |item, index|
         rank = index + 1
         nico_id = item.css('link').text.split('/').last
@@ -50,22 +62,39 @@ class Ranking < ActiveRecord::Base
           video.uploaded_at = Time.parse(item.css('pubDate').text)
         end
 
-        client = YouTubeIt::Client.new
-        youtube = client.videos_by(query: video.title).videos.first
-        nico_title_int = video.title.unpack('C*')
+        results << Thread.new do
+          search_response = client.execute!(
+            api_method: youtube.search.list,
+            parameters: {
+              part: 'snippet',
+              q: video.title,
+              maxResults: 1
+            }
+          )
 
-        if youtube
-          youtube_title_int = youtube.title.unpack('C*')
-          nico_dist = (nico_title_int - youtube_title_int).size
-          youtb_dist = (youtube_title_int - nico_title_int).size
+          search_result = search_response.data.items.first
 
-          if nico_dist < 10 && youtb_dist < 10
-            video.youtube_id = youtube.video_id.split(':').last
+          if search_result && search_result.id.kind == 'youtube#video'
+            nico_title_int = video.title.unpack('C*')
+            youtube_title_int = search_result.snippet.title.unpack('C*')
+            nico_dist = (nico_title_int - youtube_title_int).size
+            youtb_dist = (youtube_title_int - nico_title_int).size
+
+            if nico_dist < 10 && youtb_dist < 10
+              video.youtube_id = search_result.id.video_id.split(':').last
+            end
           end
-        end
-        video.save
 
-        video.rankings.create(rank_type: type, views_count: views_count, comments_count: comments_count, mylist_count: mylist_count, total_score: total_score)
+          {video: video, ranking: {rank_type: type, views_count: views_count, comments_count: comments_count, mylist_count: mylist_count, total_score: total_score}}
+        end
+      end
+
+      results.each do |result|
+        video = result.value[:video]
+        ranking = result.value[:ranking]
+
+        video.save
+        video.rankings.create(ranking)
       end
     end
   end

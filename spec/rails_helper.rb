@@ -22,7 +22,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
     stub_request(:any, /nicovideo.jp/).to_rack(FakeNicoVideo)
-    stub_request(:any, /gdata.youtube.com/).to_rack(FakeYouTube)
+    stub_request(:any, /googleapis.com/).to_rack(FakeYouTube)
   end
 
   config.after(:each) do

@@ -13,7 +13,7 @@ gem 'migration_comments'
 gem 'sidekiq'
 
 # Parsing tools
-gem 'youtube_it'
+gem 'google-api-client', '>0.7'
 
 group :development do
   gem 'capistrano', '~> 3.0'
