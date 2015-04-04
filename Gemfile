@@ -5,10 +5,6 @@ ruby '2.2.0'
 # Rails
 gem 'rails', '4.2.0'
 
-# Pagination
-gem 'will_paginate'
-gem 'will_paginate-bootstrap'
-
 # DB adapter
 gem 'pg'
 gem 'migration_comments'
@@ -17,32 +13,7 @@ gem 'migration_comments'
 gem 'sidekiq'
 
 # Parsing tools
-gem 'mechanize'
-
-# CSS
-gem 'sass-rails', '~> 5.0'
-# HTML
-# == Templates
-gem 'haml-rails'
-
-# JS
-# == Server-side JS execution
-gem 'therubyracer'
-# == JS  compressor & minification tools
-gem 'uglifier', '>= 1.3.0'
-# == CoffeeScript
-gem 'coffee-rails', '~> 4.1.0'
-# == JQuery
-gem 'jquery-rails'
-# JSON API builder
-gem 'jbuilder', '~> 2.0'
-
-# Bootstrap
-gem 'bundler', '>= 1.7.0'
-source 'https://rails-assets.org' do
-  gem 'rails-assets-bootstrap-sass'
-  gem 'rails-assets-startbootstrap-sb-admin-2'
-end
+gem 'youtube_it'
 
 group :development do
   gem 'capistrano', '~> 3.0'
@@ -67,6 +38,9 @@ group :test do
   gem 'lorem-ipsum'
   # Fixtures cleaner
   gem 'database_cleaner'
+  # HTTP stub
+  gem 'webmock'
+  gem 'sinatra'
 end
 
 group :development, :test do
@@ -80,9 +54,5 @@ end
 
 group :doc do
   gem 'sdoc', require: false
-end
-
-group :production do
-  gem 'unicorn'
 end
 

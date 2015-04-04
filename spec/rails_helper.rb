@@ -6,8 +6,11 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'shoulda/matchers'
 require 'faker'
+require 'webmock/rspec'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
   config.before(:suite) do
@@ -18,6 +21,8 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
+    stub_request(:any, /nicovideo.jp/).to_rack(FakeNicoVideo)
+    stub_request(:any, /gdata.youtube.com/).to_rack(FakeYouTube)
   end
 
   config.after(:each) do

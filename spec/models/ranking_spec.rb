@@ -62,4 +62,14 @@ RSpec.describe Ranking, type: :model do
       expect(ranking).to be_invalid
     end
   end
+
+  describe '::aggregate_rank' do
+    context 'with daily type' do
+      it 'creates ranking' do
+        Ranking.aggregate_rank('daily')
+        expect(Ranking.count).to eq 100
+        expect(Video.count).to eq 100
+      end
+    end
+  end
 end
