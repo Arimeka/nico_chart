@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
+	"github.com/shaoshing/train"
 	"log"
 	"net/http"
 	"nicochart-go/settings"
@@ -28,8 +30,12 @@ func main() {
 
 	printBanner(config)
 
-	http.HandleFunc("/", viewer.MainPage(config))
+	router := mux.NewRouter()
+	router.HandleFunc("/", viewer.MainPage(config))
+	router.NotFoundHandler = http.HandlerFunc(viewer.NotFoundPage())
+	http.Handle("/", router)
 
+	train.ConfigureHttpHandler(nil)
 	log.Fatal(http.ListenAndServe(config.Address+":"+config.Port, nil))
 }
 
