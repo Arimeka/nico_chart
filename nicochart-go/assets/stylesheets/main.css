@@ -129,6 +129,10 @@ body {
     line-height: 32px;
 }
 
+.navbar-right li.active {
+    background-color: #eee;
+}
+
 .navbar-toggle {
     padding-top: 20px;
 }
@@ -144,6 +148,10 @@ body {
 
 .submenu ul {
     text-align: center;
+}
+
+.submenu ul li.active {
+    background-color: #D8D8D8;
 }
 
 .submenu a {
@@ -200,6 +208,20 @@ body {
     font-family: PTSans-Bold;
     font-size: 18px;
     line-height: 18px;
+}
+
+.videos .video .youtube:before {
+  content: url('/static/images/youtube_small.png');
+  position: absolute;
+  bottom: 10px;
+  left: 33px;
+}
+
+.videos .video .nicovideo:before {
+  content: url('/static/images/nicovideo_small.png');
+  position: absolute;
+  bottom: 10px;
+  left: 33px;
 }
 
 .videos .video .body img {

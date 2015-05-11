@@ -9,6 +9,7 @@ import (
 	"nicochart-go/settings"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"text/template"
 	"time"
 )
@@ -29,10 +30,12 @@ func MainPage(config settings.Settings) http.HandlerFunc {
 		"javascript_tag":            train.JavascriptTag,
 		"stylesheet_tag":            train.StylesheetTag,
 		"stylesheet_tag_with_param": train.StylesheetTagWithParam,
-		"add":            add,
-		"image":          image,
-		"formatted_date": formatted_date,
-		"sorting_path":   sorting_path,
+		"add":             add,
+		"image":           image,
+		"formattedDate":   formattedDate,
+		"sortingPath":     sortingPath,
+		"videoSourceType": videoSourceType,
+		"menuActive":      menuActive,
 	}
 
 	tmpl := template.New("main.html").Funcs(funcMap)
@@ -71,18 +74,30 @@ func add(x, y int) int {
 
 func image(youtube_id, nico_id, title string) string {
 	if youtube_id != "" {
-		return "<img data-src='http://i3.ytimg.com/vi/" + youtube_id + "/hqdefault.jpg' alt='" + title + "' src='/static/images/youtube.png' class='img-thumbnail img-responsive' width='450' height='340' />"
+		return "<img data-src='http://i3.ytimg.com/vi/" + youtube_id + "/hqdefault.jpg' alt=" + strconv.Quote(title) + " src='/static/images/youtube.png' class='img-thumbnail img-responsive' width='450' height='340' />"
 	} else {
 		re := regexp.MustCompile("\\D+(\\d+)")
-		return "<img data-src='http://tn-skr1.smilevideo.jp/smile?i=" + re.ReplaceAllString(nico_id, "$1") + ".L' alt='" + title + "' src='/static/images/nicovideo.png' class='img-thumbnail img-responsive' width='450' height='340' />"
+		return "<img data-src='http://tn-skr1.smilevideo.jp/smile?i=" + re.ReplaceAllString(nico_id, "$1") + ".L' alt=" + strconv.Quote(title) + " src='/static/images/nicovideo.png' class='img-thumbnail img-responsive' width='450' height='340' />"
 	}
 }
 
-func formatted_date(date time.Time) string {
-	return date.Format(time.RFC822)
+func videoSourceType(youtube_id string) string {
+	if youtube_id != "" {
+		return "youtube"
+	} else {
+		return "nicovideo"
+	}
 }
 
-func sorting_path(path, order string) string {
+func formattedDate(date time.Time, spec string) string {
+	if spec == "RFC822" {
+		return date.Format(time.RFC822)
+	} else {
+		return date.Format(time.RFC3339)
+	}
+}
+
+func sortingPath(path, order string) string {
 	if path == "/" {
 		return "/type/daily/order/" + order
 	} else {
@@ -92,6 +107,27 @@ func sorting_path(path, order string) string {
 			return re.ReplaceAllString(path, "$1") + order
 		} else {
 			return path + "/order/" + order
+		}
+	}
+}
+
+func menuActive(path, selected string) string {
+	if path == "/" && (selected == "daily" || selected == "total_score") {
+		return "active"
+	} else {
+		var typed bool = false
+
+		ordered, _ := regexp.MatchString("order", path)
+		matched, _ := regexp.MatchString(selected, path)
+		if selected == "total" {
+			typed, _ = regexp.MatchString("/type/total", path)
+		} else {
+			typed = true
+		}
+		if typed == true && (matched == true || (ordered == false && selected == "total_score")) {
+			return "active"
+		} else {
+			return ""
 		}
 	}
 }
