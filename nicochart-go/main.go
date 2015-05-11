@@ -30,9 +30,20 @@ func main() {
 
 	printBanner(config)
 
+	fs := http.FileServer(http.Dir("static"))
+
+	// Mandatory root-based resources
+	serveSingle("/favicon.png", "./static/favicon.png")
+	serveSingle("/favicon.ico", "./static/favicon.ico")
+	serveSingle("/robots.txt", "./static/robots.txt")
+
 	router := mux.NewRouter()
 	router.HandleFunc("/", viewer.MainPage(config))
+	router.HandleFunc("/type/{rank_type:[a-z]+}", viewer.MainPage(config))
+	router.HandleFunc("/type/{rank_type:[a-z]+}/order/{order:[a-z_]+}", viewer.MainPage(config))
+	router.PathPrefix("/static/").Handler(viewer.ServeStatic(http.StripPrefix("/static/", fs)))
 	router.NotFoundHandler = http.HandlerFunc(viewer.NotFoundPage())
+
 	http.Handle("/", router)
 
 	train.ConfigureHttpHandler(nil)
@@ -44,4 +55,10 @@ func printBanner(config settings.Settings) {
 	log.Println("- environment:", settings.Env)
 	log.Println("- numcpu:     ", config.NumCPU)
 	log.Println("listen", config.Address+":"+config.Port)
+}
+
+func serveSingle(pattern string, filename string) {
+	http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, filename)
+	})
 }
