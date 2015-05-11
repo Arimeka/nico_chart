@@ -31,9 +31,6 @@ class Ranking < ActiveRecord::Base
   #===============================================================
   class << self
     def aggregate_rank(type)
-      # Delete old ranking
-      Ranking.where(rank_type: type).destroy_all
-
       url = "http://www.nicovideo.jp/ranking/fav/#{type}/vocaloid?rss=2.0"
       doc = Nokogiri::XML(open(url))
 
@@ -57,9 +54,19 @@ class Ranking < ActiveRecord::Base
         mylist_count = info.css(".nico-info .nico-info-#{type}-mylist").text.gsub(',', '').to_i
         total_score = info.css('.nico-info .nico-info-number').text.gsub(',', '').to_i
 
+        date = info.css('.nico-info .nico-info-date').text.split('年')
+        year = date.shift
+        date = date[0].to_s.split('月')
+        month = date.shift
+        date = date[0].to_s.split('日')
+        day = date.shift
+        date = date[0].to_s.strip
+        hour, minute, second = date.split('：')
+        date = Time.new(year, month, day, hour, minute, second, '+09:00')
+
         if video.new_record?
           video.title = item.css('title').text.gsub("第#{rank}位：", '')
-          video.uploaded_at = Time.parse(item.css('pubDate').text)
+          video.uploaded_at = date
         end
 
         results << Thread.new do
@@ -89,12 +96,16 @@ class Ranking < ActiveRecord::Base
         end
       end
 
-      results.each do |result|
-        video = result.value[:video]
-        ranking = result.value[:ranking]
+      Ranking.transaction do
+        # Delete old ranking
+        Ranking.where(rank_type: type).destroy_all
+        results.each do |result|
+          video = result.value[:video]
+          ranking = result.value[:ranking]
 
-        video.save
-        video.rankings.create(ranking)
+          video.save
+          video.rankings.create(ranking)
+        end
       end
     end
   end
