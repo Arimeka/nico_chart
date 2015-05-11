@@ -38,9 +38,10 @@ func main() {
 	serveSingle("/robots.txt", "./static/robots.txt")
 
 	router := mux.NewRouter()
-	router.HandleFunc("/", viewer.MainPage(config))
-	router.HandleFunc("/type/{rank_type:[a-z]+}", viewer.MainPage(config))
-	router.HandleFunc("/type/{rank_type:[a-z]+}/order/{order:[a-z_]+}", viewer.MainPage(config))
+	router.HandleFunc("/", viewer.MainPage())
+	router.HandleFunc("/video/{id:[0-9]+}", viewer.InnerPage())
+	router.HandleFunc("/type/{rank_type:[a-z]+}", viewer.MainPage())
+	router.HandleFunc("/type/{rank_type:[a-z]+}/order/{order:[a-z_]+}", viewer.MainPage())
 	router.PathPrefix("/static/").Handler(viewer.ServeStatic(http.StripPrefix("/static/", fs)))
 	router.NotFoundHandler = http.HandlerFunc(viewer.NotFoundPage())
 

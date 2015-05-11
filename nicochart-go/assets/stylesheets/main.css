@@ -104,6 +104,10 @@ body {
     color: #333333;
 }
 
+h1 {
+    font-family: PTSans-CaptionBold;
+}
+
 .container {
     background: #FFFFFF;
     border-left: 1px solid #979797;
@@ -162,6 +166,20 @@ body {
     text-decoration: none;
 }
 
+.inner-video {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.inner-video .embed-responsive {
+    margin-top: 15px;
+}
+
+.inner-video .controls {
+    font-family: PTSans-Bold;
+    margin: 30px 0;
+}
+
 .videos {
     text-align: center;
     width: 480px;
@@ -204,7 +222,7 @@ body {
     line-height: 25px;
 }
 
-.videos .video .header .title .uploaded {
+.videos .video .header .title .uploaded, .inner-video .uploaded{
     font-family: PTSans-Bold;
     font-size: 18px;
     line-height: 18px;
