@@ -25,4 +25,10 @@ namespace :ranking do
       Rails.logger.error "#{Time.now.strftime("%Y.%m.%d %H:%M:%S")} AGGREGATE: total ranking error: #{e.message}"
     end
   end
+
+  desc 'Find video on YouTube'
+  task :find, [:video_id] => :environment do |t, args|
+    video_id = args.video_id
+    FindVideoWorker.perform_async(video_id)
+  end
 end

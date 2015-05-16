@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/shaoshing/train"
 	"log"
 	"net/http"
 	"nicochart-go/settings"
@@ -38,16 +37,16 @@ func main() {
 	serveSingle("/robots.txt", "./static/robots.txt")
 
 	router := mux.NewRouter()
-	router.HandleFunc("/", viewer.MainPage())
-	router.HandleFunc("/video/{id:[0-9]+}", viewer.InnerPage())
-	router.HandleFunc("/type/{rank_type:[a-z]+}", viewer.MainPage())
-	router.HandleFunc("/type/{rank_type:[a-z]+}/order/{order:[a-z_]+}", viewer.MainPage())
-	router.PathPrefix("/static/").Handler(viewer.ServeStatic(http.StripPrefix("/static/", fs)))
+	router.HandleFunc("/", viewer.MainPage()).Methods("GET")
+	router.HandleFunc("/video/{id:[0-9]+}", viewer.InnerPage()).Methods("GET")
+	router.HandleFunc("/video/{id:[0-9]+}", viewer.FindVideo()).Methods("POST")
+	router.HandleFunc("/type/{rank_type:[a-z]+}", viewer.MainPage()).Methods("GET")
+	router.HandleFunc("/type/{rank_type:[a-z]+}/order/{order:[a-z_]+}", viewer.MainPage()).Methods("GET")
+	router.PathPrefix("/static/").Handler(viewer.ServeStatic(http.StripPrefix("/static/", fs))).Methods("GET")
 	router.NotFoundHandler = http.HandlerFunc(viewer.NotFoundPage())
 
 	http.Handle("/", router)
 
-	train.ConfigureHttpHandler(nil)
 	log.Fatal(http.ListenAndServe(config.Address+":"+config.Port, nil))
 }
 

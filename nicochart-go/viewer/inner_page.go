@@ -2,7 +2,6 @@ package viewer
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/shaoshing/train"
 	"log"
 	"net/http"
 	"nicochart-go/models"
@@ -18,11 +17,8 @@ func InnerPage() http.HandlerFunc {
 	}
 
 	funcMap := template.FuncMap{
-		"javascript_tag":            train.JavascriptTag,
-		"stylesheet_tag":            train.StylesheetTag,
-		"stylesheet_tag_with_param": train.StylesheetTagWithParam,
-		"formattedDate":             formattedDate,
-		"embedVideo":                embedVideo,
+		"formattedDate": formattedDate,
+		"embedVideo":    embedVideo,
 	}
 
 	tmpl := template.New("inner.html").Funcs(funcMap)

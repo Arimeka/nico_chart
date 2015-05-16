@@ -15,3 +15,9 @@ test:
   username: dev
   password: '321321'
   min_messages: error
+production:
+  <<: *default
+  database: nico_chart
+  username: dev
+  password: '321321'
+  min_messages: warning

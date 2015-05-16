@@ -12,5 +12,35 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
+
+$(function() {
+  $('.img-thumbnail').each(function() {
+    return LoadImage(this);
+  });
+
+  $('#find-video').on('click', function(e) {
+    var url;
+    e.preventDefault();
+    url = window.location.href;
+
+    $.post(url, function(data) {
+      $('.top-right').notify({
+         message: { text: data.app.notice.text }
+      }).show();
+    });
+  });
+});
+
+function LoadImage(image) {
+  var img = new Image(),
+    data = image.dataset;
+
+  if(data.src) {
+    img.onload = function() {
+      image.src = img.src;
+    };
+
+    img.src = data.src;
+  }
+}

@@ -2,7 +2,6 @@ package viewer
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/shaoshing/train"
 	"log"
 	"net/http"
 	"nicochart-go/models"
@@ -23,9 +22,6 @@ func MainPage() http.HandlerFunc {
 	}
 
 	funcMap := template.FuncMap{
-		"javascript_tag":            train.JavascriptTag,
-		"stylesheet_tag":            train.StylesheetTag,
-		"stylesheet_tag_with_param": train.StylesheetTagWithParam,
 		"add":             add,
 		"image":           image,
 		"formattedDate":   formattedDate,

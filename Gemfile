@@ -11,9 +11,16 @@ gem 'migration_comments'
 
 # Daemon controls
 gem 'sidekiq'
+gem 'sidekiq-unique-jobs'
 
 # Parsing tools
 gem 'google-api-client', '>0.7'
+
+# CSS
+gem 'sass-rails', '~> 5.0.1'
+# Javascript
+gem 'jquery-rails'
+gem 'uglifier', '>= 1.3.0'
 
 group :development do
   gem 'capistrano', '~> 3.0'
