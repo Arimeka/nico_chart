@@ -21,6 +21,11 @@ func ArchivePage() http.HandlerFunc {
 		log.Fatal(err)
 	}
 
+	not_found_path, err := filepath.Abs("./templates/404.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	funcMap := template.FuncMap{
 		"add":             add,
 		"image":           image,
@@ -36,6 +41,11 @@ func ArchivePage() http.HandlerFunc {
 		log.Fatal(templateError)
 	}
 
+	not_found_tmpl, templateError := template.ParseFiles(not_found_path)
+	if templateError != nil {
+		log.Fatal(templateError)
+	}
+
 	return func(response http.ResponseWriter, request *http.Request) {
 		params := mux.Vars(request)
 		page := params["page"]
@@ -45,9 +55,16 @@ func ArchivePage() http.HandlerFunc {
 		videos, err := models.ArchiveList(10, page)
 		if err != nil {
 			log.Println(err)
+			response.WriteHeader(404)
+			not_found_tmpl.Execute(response, nil)
+		} else {
+			list.Videos = videos
+			if len(*videos) == 0 {
+				response.WriteHeader(404)
+				not_found_tmpl.Execute(response, nil)
+			} else {
+				tmpl.Execute(response, list)
+			}
 		}
-
-		list.Videos = videos
-		tmpl.Execute(response, list)
 	}
 }
