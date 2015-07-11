@@ -38,10 +38,16 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", viewer.MainPage()).Methods("GET")
+
 	router.HandleFunc("/video/{id:[0-9]+}", viewer.InnerPage()).Methods("GET")
 	router.HandleFunc("/video/{id:[0-9]+}", viewer.FindVideo()).Methods("POST")
-	router.HandleFunc("/type/{rank_type:[a-z]+}", viewer.MainPage()).Methods("GET")
-	router.HandleFunc("/type/{rank_type:[a-z]+}/order/{order:[a-z_]+}", viewer.MainPage()).Methods("GET")
+
+	router.HandleFunc("/videos", viewer.ArchivePage()).Methods("GET")
+	router.HandleFunc("/videos/page/{page:([1-9]|[1-9][0-9]+)}", viewer.ArchivePage()).Methods("GET")
+
+	router.HandleFunc("/type/{rank_type:(daily|weekly|monthly|total)}", viewer.MainPage()).Methods("GET")
+	router.HandleFunc("/type/{rank_type:[a-z]+}/order/{order:(total_score|views_count|comments_count|mylist_count)}", viewer.MainPage()).Methods("GET")
+
 	router.PathPrefix("/static/").Handler(viewer.ServeStatic(http.StripPrefix("/static/", fs))).Methods("GET")
 	router.NotFoundHandler = http.HandlerFunc(viewer.NotFoundPage())
 

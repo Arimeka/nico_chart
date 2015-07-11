@@ -17,8 +17,6 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="notifications top-right"></div>
-
         <div class="container">
           <div class="row">
             <nav class="navbar">
@@ -46,16 +44,30 @@
             </nav>
           </div>
 
-          <div class="row inner-video">
+          <div class="row videos">
             <div class="col-md-12">
-              <h1>{{ .Title }}</h1>
-              <time datetime="{{formattedDate .UploadedAt "RFC3339"}}" class="uploaded">{{formattedDate .UploadedAt "RFC822"}}</time>
-              <div class="embed-responsive embed-responsive-16by9">
-                {{ embedVideo .YoutubeId.String .NicoId .Title}}
-              </div>
-              <div class="controls">
-                <button id="find-video" type="submit">Refind&nbsp;video</button>
-              </div>
+              {{ range $index, $results := .Videos }}
+                <div class="row video">
+                  <div class="col-md-12 header">
+                    <div class="col-md-12 title">
+                      <a href="/video/{{.Id}}"><h3>{{.Title}}</h3></a>
+                      <time datetime="{{formattedDate .UploadedAt "RFC3339"}}" class="uploaded">{{formattedDate .UploadedAt "RFC822"}}</time>
+                    </div>
+                  </div>
+                  <div class="col-md-12 body {{videoSourceType .YoutubeId.String}}">
+                    <a href="/video/{{.Id}}">
+                      {{image .YoutubeId.String .NicoId .Title}}
+                    </a>
+                  </div>
+                </div>
+              {{ end }}
+            </div>
+            <div class="clearfix"></div>
+            <div class="row navigation">
+              {{previousPage .LastUrlQuery}}
+              {{nextPage .LastUrlQuery}}
+              <!-- <a class="newest" href="#">Newer</a>
+              <a class="older" href="#">Older</a> -->
             </div>
           </div>
         </div>

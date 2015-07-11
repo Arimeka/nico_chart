@@ -20,14 +20,19 @@ $(function() {
   });
 
   $('#find-video').on('click', function(e) {
-    var url;
+    var url, $button;
     e.preventDefault();
     url = window.location.href;
+    $button = $(this);
 
+    $button.attr('disabled','disabled');
     $.post(url, function(data) {
       $('.top-right').notify({
          message: { text: data.app.notice.text }
       }).show();
+    })
+    .done(function() {
+      $button.removeAttr('disabled');
     });
   });
 });

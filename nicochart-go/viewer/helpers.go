@@ -3,6 +3,7 @@ package viewer
 import (
 	"regexp"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -75,5 +76,45 @@ func embedVideo(youtube_id, nico_id, title string) string {
 		return "<iframe class=\"embed-responsive-item\" width=\"853\" height=\"480\" src=\"https://www.youtube.com/embed/" + youtube_id + "\" frameborder=\"0\" allowfullscreen></iframe>"
 	} else {
 		return "<script type=\"text/javascript\" src=\"http://ext.nicovideo.jp/thumb_watch/" + nico_id + "?w=853&h=480\"></script><noscript><a href=\"http://www.nicovideo.jp/watch/" + nico_id + "\">Niconico " + title + "</a></noscript>"
+	}
+}
+
+func previousPage(path string) string {
+	if path == "/videos" {
+		return "<span class=\"newest\">Newer</span>"
+	} else {
+		slice := strings.SplitAfter(path, "/")
+		if len(slice) > 0 {
+			page, err := strconv.ParseUint(slice[len(slice)-1], 10, 64)
+			if err != nil {
+				return "<span class=\"newest\">Newer</span>"
+			}
+
+			if page == 1 {
+				return "<a class=\"newest\" href=\"/videos\">Newer</a>"
+			} else {
+				return "<a class=\"newest\" href=\"/videos/page/" + strconv.FormatUint(page-1, 10) + "\">Newer</a>"
+			}
+		} else {
+			return "<span class=\"newest\">Newer</span>"
+		}
+	}
+}
+
+func nextPage(path string) string {
+	if path == "/videos" {
+		return "<a class=\"older\" href=\"/videos/page/1\">Older</a>"
+	} else {
+		slice := strings.SplitAfter(path, "/")
+		if len(slice) > 0 {
+			page, err := strconv.ParseUint(slice[len(slice)-1], 10, 64)
+			if err != nil {
+				return "<span class=\"older\">Older</span>"
+			}
+
+			return "<a class=\"older\" href=\"/videos/page/" + strconv.FormatUint(page+1, 10) + "\">Older</a>"
+		} else {
+			return "<span class=\"older\">Older</span>"
+		}
 	}
 }

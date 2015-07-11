@@ -51,9 +51,13 @@ class Video < ActiveRecord::Base
       if nico_dist < 10 && youtb_dist < 10
         if youtube_id != search_result.id.video_id.split(':').last
           self.youtube_id = search_result.id.video_id.split(':').last
-          self.save
         end
+      else
+        self.youtube_id = nil
       end
+    else
+      self.youtube_id = nil
     end
+    self.save
   end
 end

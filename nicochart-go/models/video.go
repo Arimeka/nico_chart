@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"nicochart-go/settings"
+	"strconv"
 	"time"
 
 	_ "github.com/lib/pq"
@@ -96,6 +97,58 @@ func RankList(rank_type string, order string) (*[]Video, error) {
 		}
 
 		video.Score = score(order, &video)
+
+		videos = append(videos, video)
+	}
+
+	return &videos, nil
+}
+
+func ArchiveList(limit uint64, page string) (*[]Video, error) {
+	var (
+		videos []Video
+		err    error
+		db     *sql.DB
+		offset uint64
+	)
+
+	if page == "" {
+		offset = 0
+	} else {
+		page_uint, err := strconv.ParseUint(page, 10, 64)
+		if err != nil {
+			return nil, err
+		}
+
+		offset = limit * page_uint
+	}
+
+	db, err = settings.Db()
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
+
+	rows, err := db.Query(`SELECT  "videos".id, "videos".title, "videos".youtube_id, "videos".nico_id,
+													"videos".uploaded_at
+                          FROM "videos"
+                          ORDER BY uploaded_at DESC
+                          LIMIT $1 OFFSET $2`, limit, offset)
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var video Video = Video{}
+		err = rows.Scan(
+			&video.Id,
+			&video.Title,
+			&video.YoutubeId,
+			&video.NicoId,
+			&video.UploadedAt,
+		)
+		if err != nil {
+			return nil, err
+		}
 
 		videos = append(videos, video)
 	}

@@ -190,72 +190,79 @@ h1 {
     margin: 30px 10px;
 }
 
-.inner-video .controls a {
-    border-radius: 8px;
-    border: 1px solid #979797;
-    font-family: PTSans-Bold;
-    font-size: 18px;
-    color: #333333;
-    text-decoration: none;
-    line-height: 70px;
-    padding: 15px 35px;
-    margin-right: 25px;
+.inner-video .controls button {
+  border-radius: 8px;
+  border: 1px solid #979797;
+  font-family: PTSans-Bold;
+  font-size: 18px;
+  color: #333333;
+  text-decoration: none;
+  padding: 15px 35px;
+  margin-right: 25px;
+  background-color: #fff;
+  border-color: #ccc;
 }
 
-.inner-video .controls a:hover {
-    background-color: #F2F2F2;
+.inner-video .controls button:hover {
+  background-color: #e6e6e6;
+  border-color: #adadad;
 }
 
-.inner-video .controls a:active {
-    background-color: #D8D8D8;
+.inner-video .controls button:active {
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+  box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
 }
 
 .videos {
-    text-align: center;
-    width: 480px;
-    margin: 0 auto;
-    display: table;
+  text-align: center;
+  width: 480px;
+  margin: 0 auto;
+  display: table;
 }
 
 .videos .video {
-    margin-bottom: 25px;
-    margin-top: 50px;
+  margin-bottom: 25px;
+  margin-top: 50px;
 }
 
 .videos .video .header {
-    width: 100%;
-    height: auto;
-    margin-bottom: 25px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 25px;
 }
 
 .videos .video .header .rank {
-    font-family: PTSans-CaptionBold;
-    font-size: 64px;
-    line-height: 84px;
+  font-family: PTSans-CaptionBold;
+  font-size: 64px;
+  line-height: 84px;
 }
 
 .videos .video .header .rank .score {
-    font-family: PTSans-Bold;
-    font-size: 22px;
-    line-height: 22px;
+  font-family: PTSans-Bold;
+  font-size: 22px;
+  line-height: 22px;
 }
 
 .videos .video .header .title a {
-    color: #333333;
-    text-decoration: none;
+  color: #333333;
+  text-decoration: none;
 }
 
 .videos .video .header .title h3 {
-    font-family: PTSans-CaptionBold;
-    font-size: 24px;
-    color: #222222;
-    line-height: 25px;
+  font-family: PTSans-CaptionBold;
+  font-size: 24px;
+  color: #222222;
+  line-height: 25px;
 }
 
 .videos .video .header .title .uploaded, .inner-video .uploaded{
-    font-family: PTSans-Bold;
-    font-size: 18px;
-    line-height: 18px;
+  font-family: PTSans-Bold;
+  font-size: 18px;
+  line-height: 18px;
 }
 
 .videos .video .youtube:before {
@@ -273,9 +280,41 @@ h1 {
 }
 
 .videos .video .body img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
+
+.videos .navigation {
+  margin-top: 30px;
+  margin-bottom: 45px;
+}
+
+.videos .navigation a, .videos .navigation span {
+  font-family: PTSans-Bold;
+  line-height: 21px;
+  border: 1px #acacac solid;
+  display: inline-block;
+  margin: 0 5px;
+  text-align: center;
+  border-radius: 3px;
+  color: #333333;
+  font-size: 14px;
+  padding: 5px 30px;
+  text-decoration: none;
+}
+
+.videos .navigation span {
+  opacity: .4;
+}
+
+.videos .navigation a:hover {
+  background: #f1f1f1;
+}
+
+.videos .navigation a:active {
+  background: #bebebe;
+}
+
 
 footer {
     width:100%;
