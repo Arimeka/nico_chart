@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"strings"
 	"text/template"
-	"time"
 )
 
 func ServeStatic(h http.Handler) http.HandlerFunc {
@@ -26,7 +25,6 @@ func ServeStatic(h http.Handler) http.HandlerFunc {
 			response.WriteHeader(404)
 			tmpl.Execute(response, nil)
 		} else {
-			response.Header().Set("Expires", time.Now().UTC().AddDate(1, 0, 0).Format(time.RFC1123))
 			h.ServeHTTP(response, request)
 		}
 	}

@@ -1,11 +1,13 @@
 package main
 
 import (
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"nicochart-go/settings"
 	"nicochart-go/viewer"
+	"os"
 	"runtime"
 )
 
@@ -51,7 +53,12 @@ func main() {
 	router.PathPrefix("/static/").Handler(viewer.ServeStatic(http.StripPrefix("/static/", fs))).Methods("GET")
 	router.NotFoundHandler = http.HandlerFunc(viewer.NotFoundPage())
 
-	http.Handle("/", router)
+	logFile, err := os.OpenFile("log/server.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	http.Handle("/", handlers.LoggingHandler(logFile, router))
 
 	log.Fatal(http.ListenAndServe(config.Address+":"+config.Port, nil))
 }

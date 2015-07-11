@@ -12,6 +12,7 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+nicochart-go/log/*.log
 /tmp
 
 /config/google_api.yml
