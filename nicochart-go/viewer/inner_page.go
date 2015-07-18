@@ -24,6 +24,8 @@ func InnerPage() http.HandlerFunc {
 	funcMap := template.FuncMap{
 		"formattedDate": formattedDate,
 		"embedVideo":    embedVideo,
+		"imageUrl":      imageUrl,
+		"pageTitle":     pageTitle,
 	}
 
 	tmpl := template.New("inner.html").Funcs(funcMap)

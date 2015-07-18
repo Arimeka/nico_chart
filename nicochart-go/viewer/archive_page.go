@@ -32,8 +32,7 @@ func ArchivePage() http.HandlerFunc {
 		"formattedDate":   formattedDate,
 		"videoSourceType": videoSourceType,
 		"previousPage":    previousPage,
-		"nextPage":        nextPage,
-	}
+		"nextPage":        nextPage}
 
 	tmpl := template.New("archive.html").Funcs(funcMap)
 	tmpl, templateError := tmpl.ParseFiles(path)

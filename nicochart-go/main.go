@@ -24,14 +24,14 @@ func main() {
 
 	config, err := settings.SetDefaults(settings.BuildFromFile(settings.Path))
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
 
 	runtime.GOMAXPROCS(config.NumCPU)
 
 	printBanner(config)
 
-	fs := http.FileServer(http.Dir("static"))
+	fs := http.FileServer(http.Dir("../public"))
 
 	// Mandatory root-based resources
 	serveSingle("/favicon.png", "./static/favicon.png")
@@ -53,12 +53,7 @@ func main() {
 	router.PathPrefix("/static/").Handler(viewer.ServeStatic(http.StripPrefix("/static/", fs))).Methods("GET")
 	router.NotFoundHandler = http.HandlerFunc(viewer.NotFoundPage())
 
-	logFile, err := os.OpenFile("log/server.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	http.Handle("/", handlers.LoggingHandler(logFile, router))
+	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
 
 	log.Fatal(http.ListenAndServe(config.Address+":"+config.Port, nil))
 }

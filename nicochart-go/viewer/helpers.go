@@ -20,6 +20,18 @@ func image(youtube_id, nico_id, title string) string {
 	}
 }
 
+func imageUrl(youtube_id string) string {
+	if youtube_id != "" {
+		return "http://i3.ytimg.com/vi/" + youtube_id + "/hqdefault.jpg"
+	} else {
+		return "http://vocaloid.anifag.com/static/images/default-share.png"
+	}
+}
+
+func pageTitle(title string) string {
+	return title + " - Vocaloid Ranking"
+}
+
 func videoSourceType(youtube_id string) string {
 	if youtube_id != "" {
 		return "youtube"
