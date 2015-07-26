@@ -21,7 +21,6 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(pwd)
 	slice := strings.SplitAfter(pwd, "/")
 	current_dir := slice[len(slice)-1]
 	if current_dir != "nicochart-go" {
