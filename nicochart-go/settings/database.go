@@ -2,6 +2,7 @@ package settings
 
 import (
 	"database/sql"
+	"log"
 
 	_ "github.com/lib/pq"
 )
@@ -12,7 +13,12 @@ func Db() (*sql.DB, error) {
 		err error
 	)
 
-	db, err = sql.Open("postgres", "user=dev password=321321 dbname=nico_chart_dev sslmode=disable")
+	config, err := BuildFromFile("../config/database.yml")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	db, err = sql.Open("postgres", "user="+config.DbUser+" password="+config.DbPassword+" dbname="+config.DbName+" sslmode=disable")
 	if err != nil {
 		return nil, err
 	}

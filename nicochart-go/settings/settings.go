@@ -17,10 +17,13 @@ var DEFAULTS = map[string]interface{}{
 }
 
 type Settings struct {
-	Address string
-	Port    string
-	NumCPU  int    `yaml:"numcpu"`
-	Scheme  string `yaml:"scheme"`
+	Address    string
+	Port       string
+	NumCPU     int    `yaml:"numcpu"`
+	Scheme     string `yaml:"scheme"`
+	DbUser     string `yaml:"username"`
+	DbPassword string `yaml:"password"`
+	DbName     string `yaml:"database"`
 }
 
 var (

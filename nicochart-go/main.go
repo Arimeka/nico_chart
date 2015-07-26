@@ -9,6 +9,7 @@ import (
 	"nicochart-go/viewer"
 	"os"
 	"runtime"
+	"strings"
 )
 
 const (
@@ -16,6 +17,20 @@ const (
 )
 
 func init() {
+	pwd, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(pwd)
+	slice := strings.SplitAfter(pwd, "/")
+	current_dir := slice[len(slice)-1]
+	if current_dir != "nicochart-go" {
+		err = os.Chdir(pwd + "/nicochart-go")
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
 	settings.SetupOptions("config address env")
 }
 
