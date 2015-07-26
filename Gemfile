@@ -12,6 +12,7 @@ gem 'migration_comments'
 # Daemon controls
 gem 'sidekiq'
 gem 'sidekiq-unique-jobs'
+gem 'whenever', require: false
 
 # Parsing tools
 gem 'google-api-client', '>0.7'
