@@ -46,20 +46,17 @@ namespace :golang do
   desc 'Compiling golang application'
   task :compile do
     run_locally do
-      execute  <<-CMD
-        gvm use 1.4.2
-        go build nicochart-go/main.go
-      CMD
+      execute 'GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build nicochart-go/main.go'
     end
   end
 
   desc 'Upload compiled application to server'
   task :upload do
     on roles(:app) do
-      upload! 'nicochart-go/main', "#{fetch(:release_path)}/nicochart-go", via: :scp
+      upload! 'main', "#{fetch(:release_path)}/nicochart-go", via: :scp
     end
     run_locally do
-      execute 'cd nicochart-go && rm main'
+      execute 'rm main'
     end
   end
 end
@@ -77,27 +74,33 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app) do
-      execute 'eye restart #{application}'
+      execute "~/.rvm/bin/rvm default do eye restart #{fetch(:application)}"
     end
   end
 
   desc 'Start application'
   task :start do
     on roles(:app) do
-      execute 'eye restart #{application}'
+      within(release_path) do
+        execute "~/.rvm/bin/rvm default do eye restart #{fetch(:application)}"
+      end
     end
   end
 
   desc 'Stop application'
   task :stop do
     on roles(:app) do
-      execute 'eye stop #{application}'
+      within(release_path) do
+        execute "~/.rvm/bin/rvm default do eye stop #{fetch(:application)}"
+      end
     end
   end
 
   task :load_eye do
     on roles(:app) do
-      execute "eye load #{fetch(:release_path)}/config/eye.conf.#{fetch(:rails_env)}.rb"
+      within(release_path) do
+        execute "~/.rvm/bin/rvm default do eye load #{fetch(:release_path)}/config/eye.conf.#{fetch(:rails_env)}.rb"
+      end
     end
   end
 end
