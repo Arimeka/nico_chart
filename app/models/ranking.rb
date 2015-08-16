@@ -69,6 +69,8 @@ class Ranking < ActiveRecord::Base
           video.uploaded_at = date
         end
 
+        sleep(2) if Thread.list.size > 5
+
         results << Thread.new do
           search_response = client.execute!(
             api_method: youtube.search.list,
